@@ -55,7 +55,7 @@ version = "0.3.2"
 description = "CRUD interface for sqlalchemy using streamlit"
 readme = "README.md"
 # readme= "docs/README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 license = {text = "MIT License"}
 dependencies = [
     "python-dateutil",

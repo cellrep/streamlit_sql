@@ -34,7 +34,7 @@ class SqlUi:
         rolling_total_column: str | None = None,
         rolling_orderby_colsname: list[str] | None = None,
         df_style_formatter: dict[str, str] | None = None,
-        read_use_container_width: bool = False,
+        read_container_with: str = "content",
         hide_id: bool = True,
         base_key: str = "",
         style_fn: Callable[[pd.Series], list[str]] | None = None,
@@ -51,7 +51,7 @@ class SqlUi:
             rolling_total_column (str, optional): A numeric column name of the read_instance. A new column will be displayed with the rolling sum of these column
             rolling_orderby_colsname (list[str], optional): A list of columns name of the read_instance. It should contain a group of columns that ensures uniqueness of the rows and the order to calculate rolling sum. Usually, it should a date and id column. If not informed, rows will be sorted by id only. Defaults to None
             df_style_formatter (dict[str,str]): a dictionary where each key is a column name and the associated value is the formatter arg of df.style.format method. See pandas docs for details.
-            read_use_container_width (bool, optional): add use_container_width to st.dataframe args. Default to False
+            read_container_with (str, optional): For `use_container_width=True`, use `width='stretch'`. For `use_container_width=False`, use `width='content'`
             hide_id (bool, optional): The id column will not be displayed if set to True. Defaults to True
             base_key (str, optional): A prefix to add to widget's key argument. This is needed when creating more than one instance of this class in the same page. Defaults to empty str
             style_fn (Callable[[pd.Series], list[str]], optional): A function that goes into the *func* argument of *df.style.apply*. The apply method also receives *axis=1*, so it works on rows. It can be used to apply conditional css formatting on each column of the row. See Styler.apply info on pandas docs. Defaults to None
@@ -99,7 +99,7 @@ class SqlUi:
                 rolling_total_column="amount",
                 rolling_orderby_colsname=["date", "id"],
                 df_style_formatter={"amount": "{:,.2f}"},
-                read_use_container_width=True,
+                read_container_with='stretch',
                 hide_id=True,
                 base_key="my_base_sql_ui",
                 style_fn=style_fn,
@@ -118,7 +118,7 @@ class SqlUi:
         self.rolling_total_column = rolling_total_column
         self.rolling_orderby_colsname = rolling_orderby_colsname or ["id"]
         self.df_style_formatter = df_style_formatter or {}
-        self.read_use_container_width = read_use_container_width
+        self.read_container_with = read_container_with
         self.hide_id = hide_id
         self.base_key = base_key
         self.style_fn = style_fn
@@ -352,7 +352,7 @@ class SqlUi:
 
         selection_state = self.data_container.dataframe(
             df_style,
-            use_container_width=self.read_use_container_width,
+            width=self.read_container_with,
             height=650,
             hide_index=True,
             column_order=column_order,
@@ -418,7 +418,7 @@ def show_sql_ui(
     rolling_total_column: str | None = None,
     rolling_orderby_colsname: list[str] | None = None,
     df_style_formatter: dict[str, str] | None = None,
-    read_use_container_width: bool = False,
+    read_container_with: str = "content",
     hide_id: bool = True,
     base_key: str = "",
     style_fn: Callable[[pd.Series], list[str]] | None = None,
@@ -444,7 +444,7 @@ def show_sql_ui(
         rolling_total_column=rolling_total_column,
         rolling_orderby_colsname=rolling_orderby_colsname,
         df_style_formatter=df_style_formatter,
-        read_use_container_width=read_use_container_width,
+        read_container_with=read_container_with,
         hide_id=hide_id,
         base_key=base_key,
         style_fn=style_fn,

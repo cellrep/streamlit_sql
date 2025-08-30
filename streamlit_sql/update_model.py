@@ -124,7 +124,7 @@ def action_btns(container: DeltaGenerator, qtty_selected: int, opened: bool):
             icon=":material/add:",
             type="secondary",
             disabled=disabled_add,
-            use_container_width=True,
+            width='stretch',
         )
 
         edit_btn = edit_col.button(
@@ -133,7 +133,7 @@ def action_btns(container: DeltaGenerator, qtty_selected: int, opened: bool):
             icon=":material/edit:",
             type="secondary",
             disabled=disabled_edit,
-            use_container_width=True,
+            width='stretch',
         )
 
         del_btn = del_col.button(
@@ -142,7 +142,7 @@ def action_btns(container: DeltaGenerator, qtty_selected: int, opened: bool):
             icon=":material/delete:",
             type="primary",
             disabled=disabled_delete,
-            use_container_width=True,
+            width='stretch',
         )
 
         if opened:
